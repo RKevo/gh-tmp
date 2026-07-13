@@ -1,0 +1,14 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.1
+reloadable = true
+
+[libraries]
+linux.debug.x86_64 =     "res://../rust/target/debug/libiwtsb_src.so"
+linux.release.x86_64 =   "res://../rust/target/release/libiwtsb_src.so"
+windows.debug.x86_64 =   "res://../rust/target/debug/iwtsb_src.dll"
+windows.release.x86_64 = "res://../rust/target/release/iwtsb_src.dll"
+macos.debug =            "res://../rust/target/debug/libiwtsb_src.dylib"
+macos.release =          "res://../rust/target/release/libiwtsb_src.dylib"
+macos.debug.arm64 =      "res://../rust/target/debug/libiwtsb_src.dylib"
+macos.release.arm64 =    "res://../rust/target/release/libiwtsb_src.dylib"

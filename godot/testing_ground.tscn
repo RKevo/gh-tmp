@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dm3ce45l5n1yh"]
+
+[ext_resource type="Shader" uid="uid://buhg4t5rshcv0" path="res://testing_ground.gdshader" id="1_q4otm"]
+[ext_resource type="Texture2D" uid="uid://0gsxgmowijy1" path="res://assets/Vector/texture_04.svg" id="2_1aoan"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6fpla"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g153e"]
+render_priority = 0
+shader = ExtResource("1_q4otm")
+shader_parameter/color_one = Color(0.8970499, 0, 0.1726613, 1)
+shader_parameter/color_two = Color(1, 0.65, 0, 1)
+shader_parameter/color_outline = Color(0.28855395, 0.49780917, 1, 1)
+shader_parameter/angle = 60.0
+shader_parameter/line_count = 40.0
+shader_parameter/speed = 4.0
+shader_parameter/blur = 0.0
+shader_parameter/TEXTURE_PIXEL_SIZE = Vector2(64, 64)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wttif"]
+
+[sub_resource type="Environment" id="Environment_ki2y4"]
+ambient_light_source = 1
+reflected_light_source = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_6fpla"]
+font_size = 24
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_6fpla"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_71d8t"]
+shading_mode = 0
+albedo_texture = ExtResource("2_1aoan")
+uv1_scale = Vector3(0.125, 0.125, 0.125)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_6fpla"]
+size = Vector3(29, 2, 28)
+
+[node name="TestingGround" type="Node3D" unique_id=106479823]
+
+[node name="Player" type="PlayerCharacter" parent="." unique_id=1318028103]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1658510922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_6fpla")
+surface_material_override/0 = SubResource("ShaderMaterial_g153e")
+
+[node name="Collider" type="CollisionShape3D" parent="Player" unique_id=288480280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_wttif")
+
+[node name="View" type="Camera3D" parent="Player" unique_id=1107935457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+current = true
+fov = 95.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Player/View" unique_id=274265444]
+environment = SubResource("Environment_ki2y4")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=965895626]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD" unique_id=1633856862]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer" unique_id=1805359719]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/HBoxContainer" unique_id=1386810612]
+layout_mode = 2
+text = "Est. Vel: "
+label_settings = SubResource("LabelSettings_6fpla")
+
+[node name="EstVel" type="Label" parent="HUD/VBoxContainer/HBoxContainer" unique_id=445625758]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0"
+label_settings = SubResource("LabelSettings_6fpla")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/VBoxContainer" unique_id=1782593278]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/HBoxContainer2" unique_id=1939602200]
+layout_mode = 2
+text = "Real Vel: "
+label_settings = SubResource("LabelSettings_6fpla")
+
+[node name="RealVel" type="Label" parent="HUD/VBoxContainer/HBoxContainer2" unique_id=790257415]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0"
+label_settings = SubResource("LabelSettings_6fpla")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=673312615]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1893060217]
+shape = SubResource("WorldBoundaryShape3D_6fpla")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1585968018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("ORMMaterial3D_71d8t")
+mesh = SubResource("BoxMesh_6fpla")
