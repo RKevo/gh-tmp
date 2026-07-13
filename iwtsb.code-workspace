@@ -11,53 +11,34 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "Debug Game",
-				"preLaunchTask": "build-rust",
-				"type": "lldb",
-				"request": "launch",
-				"program": "C:/Users/ad/AppData/Local/Microsoft/WinGet/Links/godot.exe",
-				"cwd": "${workspaceFolder:godot}",
-				"presentation": {
-					"group": "Debug",
-					"order": 1
-				}
-			},
-			{
-				"name": "Release Game",
-				"preLaunchTask": "godot-rust: Build Release",
-				"type": "lldb",
-				"request": "launch",
-				"program": "${config:godot-rust.environment.godotEditorPath}",
-				"cwd": "${config:godot-rust.environment.godotProjectPath}",
-				"presentation": {
-					"group": "Debug",
-					"order": 2
-				}
-			},
-			{
-				"name": "Attach to Game",
-				"pid": "${command:pickMyProcess}",
-				"type": "lldb",
-				"request": "attach",
-				"program": "${config:godot-rust.environment.godotEditorPath}",
-				"port": 6007,
-				"presentation": {
-					"group": "Debug",
-					"order": 3
-				}
-			}
+            "name": "Debug Project (Godot 4)",
+            "type": "lldb", // type provided by CodeLLDB extension
+            "request": "launch",
+            "cwd": "${workspaceFolder:godot}",
+            "preLaunchTask": "build-rust",
+            "args": [
+                "-w" // windowed mode
+                // "-e": editor does not keep breakpoints; thus not listed here.
+            ],
+            "program": "${env:localappdata}/Microsoft/WinGet/Links/godot.exe"
+        }
+
 		]
 	},
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
 			{
-				"label": "build-rust",
-				"command": "cargo",
-				"args": [
-					"build"
-				],
-			}
+            "label": "build-rust",
+            "command": "cargo",
+            "args": [
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder:rust}"
+            }
+        }
 		]
-	}
+	},
+	
 }
