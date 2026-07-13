@@ -1,5 +1,4 @@
-//! Since we can't (yet) step physics manually. The plan is to experiment with godot's built-ins
-//! for now and swap out for a manually managed physics frontend later.
+//! Manual physics step when.
 
 use std::hint::cold_path;
 
